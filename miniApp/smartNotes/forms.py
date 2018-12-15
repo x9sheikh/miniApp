@@ -3,13 +3,13 @@ from .models import SmartNotes
 
 class CreateForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter your Title Here'}))
-    subjectName = forms.CharField(label="Subject Name")
-    mentorName = forms.CharField(label="Mentor Name")
-    notes = forms.CharField(
-        label="Notes",
+    subject = forms.CharField(label="Subject Name")
+    mentor = forms.CharField(label="Mentor Name")
+    context = forms.CharField(
+        label="Context",
         widget= forms.Textarea(
             attrs={
-                'palceholder': 'Write your Notes, Here',
+                'palceholder': 'Write your Notes Context, Here',
                 'rows': 10,
                 'cols': 80
             }
@@ -20,8 +20,8 @@ class CreateForm(forms.Form):
         model = SmartNotes
         fields = [
             'title',
-            'subjectName',
-            'mentorName',
-            'notes'
+            'subject',
+            'mentor',
+            'context'
         ]
 
