@@ -56,7 +56,7 @@ def detailNotes(request, notesId):
             subject.name = form.cleaned_data['subject']
             subject.save()
 
-            #################### SET TITLE AND CONTEXT TOO AND SAVE MY-SMART-NOTE#########################
+            #################### SET TITLE AND CONTEXT TOO AND SAVE MY-SMART-NOTES#########################
             mySmartNote.title = form.cleaned_data['title']
             mySmartNote.context = form.cleaned_data['context']
             mySmartNote.save()
