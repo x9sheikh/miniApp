@@ -1,5 +1,5 @@
 from django import forms
-from .models import SmartNotes
+from .models import MySmartNote
 
 class CreateForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter your Title Here'}))
@@ -17,7 +17,7 @@ class CreateForm(forms.Form):
 
 
     class Meta:
-        model = SmartNotes
+        model = MySmartNote
         fields = [
             'title',
             'subject',
