@@ -21,7 +21,21 @@ def createNotes(request):
     form = CreateForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            title = form.cleaned_data['title']
+            subject = form.cleaned_data['subject']
+            mentor = form.cleaned_data['mentor']
+            context = form.cleaned_data['context']
+            mentorObject = Mentor.objects.create(name=mentor)
+            mentorObject.save()
+            subjectObject = Subject.objects.create(name=subject)
+            subjectObject.save()
+            mySmartNoteObject = MySmartNote.objects.create(
+                title=title,
+                subject=subjectObject,
+                mentor=mentorObject,
+                context=context
+            )
+            mySmartNoteObject.save()
             return HttpResponse("Success")
         else:
             print ("NonSuccess")

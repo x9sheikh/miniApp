@@ -15,13 +15,3 @@ class CreateForm(forms.Form):
             }
         ))
 
-
-    class Meta:
-        model = MySmartNote
-        fields = [
-            'title',
-            'subject',
-            'mentor',
-            'context'
-        ]
-
