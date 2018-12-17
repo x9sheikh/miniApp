@@ -21,13 +21,7 @@ def createNotes(request):
     form = CreateForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            smartNotes = SmartNotes()
-
-            smartNotes.title = form.cleaned_data['title']
-            smartNotes.mentorName = form.cleaned_data['mentorName']
-            smartNotes.subjectName = form.cleaned_data['subjectName']
-            smartNotes.notes = form.cleaned_data['notes']
-            smartNotes.save()
+            form.save()
             return HttpResponse("Success")
         else:
             print ("NonSuccess")

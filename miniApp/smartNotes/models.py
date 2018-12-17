@@ -13,7 +13,7 @@ class Mentor(models.Model):
     def __str__(self):
         return self.name
 
-class SmartNotes(models.Model):
+class SmartNote(models.Model):
     title = models.CharField(max_length=64, unique=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
