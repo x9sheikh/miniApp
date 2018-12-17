@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Subject, MySmartNote, Mentor
 from .forms import CreateForm
+from django import forms
 # Create your views here.
 def index(request):
     context = {
@@ -10,6 +11,21 @@ def index(request):
     return render(request,'smartNotes/index.html', context)
 
 def detailNotes(request, notesId):
+    class EditForm(forms.Form):
+        title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter your Title Here'}))
+        subject = forms.CharField(label="Subject Name",
+                                  widget=forms.TextInput(attrs={'placeholder': 'Enter your Subject Name'}))
+        mentor = forms.CharField(label="Mentor Name",
+                                 widget=forms.TextInput(attrs={'placeholder': 'Enter your Mentor Name'}))
+        context = forms.CharField(
+            label="Context",
+            widget=forms.Textarea(
+                attrs={
+                    'placeholder': 'Write your Context, Here',
+                    'rows': 10,
+                    'cols': 80
+                }
+            ))
     thisNote = MySmartNote.objects.get(id=notesId)
     context = {
         'title': thisNote.title,

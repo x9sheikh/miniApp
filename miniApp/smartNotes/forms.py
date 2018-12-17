@@ -14,4 +14,3 @@ class CreateForm(forms.Form):
                 'cols': 80
             }
         ))
-
