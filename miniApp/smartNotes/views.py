@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Subject, MySmartNote, Mentor
 from .forms import CreateForm
 from django import forms
+from django.shortcuts import redirect
 # Create your views here.
 def index(request):
     context = {
@@ -62,7 +63,7 @@ def detailNotes(request, notesId):
             mySmartNote.save()
 
 
-            return HttpResponse("Success")
+            return redirect('index')
         else:
             context = {
                 'notesId': notesId,
@@ -82,14 +83,19 @@ def createNotes(request):
     form = CreateForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
+            ######################## DECLARE VARIABLES & INITIALIZED IT WITH INPUT FORMS #######
             title = form.cleaned_data['title']
             subject = form.cleaned_data['subject']
             mentor = form.cleaned_data['mentor']
             context = form.cleaned_data['context']
+            ######################### CREATE MENTOR OBJECTS AND SAVE WITH THE NEW VALUE ########
             mentorObject = Mentor.objects.create(name=mentor)
             mentorObject.save()
+            ######################### CREATE SUBJECT OBJECTS AND SAVE WITH THE NEW VALUE #######
             subjectObject = Subject.objects.create(name=subject)
             subjectObject.save()
+
+            ######################### CREATE SMART-NOTE OBJECTS AND INTIALIZED IT'S ALL ATTRIBUTES
             mySmartNoteObject = MySmartNote.objects.create(
                 title=title,
                 subject=subjectObject,
@@ -97,10 +103,13 @@ def createNotes(request):
                 context=context
             )
             mySmartNoteObject.save()
-            return HttpResponse("Success")
+            return redirect('index')
         else:
-            print ("NonSuccess")
-            return HttpResponse("UnSuccess")
+            context = {
+                'form': form,
+                'error': 'Something going wrong'
+            }
+            return render(request, 'smartNotes/createNotes.html', context)
     else:
         context = {
             'form': form
